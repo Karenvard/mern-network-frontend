@@ -1,0 +1,29 @@
+.container {
+    width: 80%;
+    height: 100%;
+    float: right;
+}
+
+
+.form {
+    margin-top: 20%;
+}
+
+.input {
+    width: 30%;
+    margin-left: 25%;
+    margin-top: 0.5%;
+}
+
+.login{
+    margin-left: 36%;
+    width: 7%;
+}
+
+.nrText {
+    margin-left: 30%;
+}
+
+.nrBtn {
+
+}

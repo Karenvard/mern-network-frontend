@@ -1,0 +1,35 @@
+.container {
+    width: 80%;
+    height: 100%;
+    float: right;
+}
+
+.headerIMG {
+    width: 100%;
+    height: 400px;
+}
+
+.profileInfo {
+    display: flex;
+}
+
+.about {
+    margin: 50px 0 0 40px;
+}
+
+.profilePhoto {
+    width: 250px;
+    height: 250px;
+    border: 20px solid #d9d9d9;
+    border-radius: 20%;
+    margin-top: 40px;
+    margin-left: 50px;
+}
+
+.upload {
+    margin-left: 100px;
+}
+
+.uploadBtn {
+    margin-left: 200px;
+}

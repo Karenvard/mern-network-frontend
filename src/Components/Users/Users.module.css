@@ -1,0 +1,15 @@
+.container {
+    width: 80%;
+    float: right;
+}
+
+.userPhoto {
+    width: 200px;
+}
+
+.userContainer {
+    width: 400px;
+    text-align: center;
+    margin-top: 50px;
+}
+
