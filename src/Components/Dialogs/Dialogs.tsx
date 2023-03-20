@@ -7,7 +7,7 @@ const Dialogs = () => {
     const [messages, setMessages] = useState<string[]>(["Hi", "hello"]);
     const [message, setMessage] = useState('');
     const {profile} = useAppSelector(state => state.authReducer)
-    const socket = new WebSocket("ws://mern-network.onrender.com")
+    const socket = new WebSocket("wss://mern-network.onrender.com")
     useEffect(() => {
         socket.onopen = () => {
             socket.send(JSON.stringify({
