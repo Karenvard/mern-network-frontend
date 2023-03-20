@@ -10,6 +10,7 @@ const Dialogs = () => {
     const socket = new WebSocket("ws://mern-network.onrender.com")
     useEffect(() => {
         socket.onopen = () => {
+            console.log("Web socket opened")
             socket.send(JSON.stringify({
                 type: "connection",
                 chatID: "nuka"
