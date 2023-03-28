@@ -44,7 +44,7 @@ const DialogsPage: FC = () => {
 
           <div>
             {activeChat && activePartner 
-            ? <Dialogs partner={activePartner as IProfile} chat={activeChat as IChat}/>
+            ? <Dialogs getChats={usersThunks.getChats} partner={activePartner as IProfile} chat={activeChat as IChat}/>
             : "Not choosed yet"}
             
           </div>
