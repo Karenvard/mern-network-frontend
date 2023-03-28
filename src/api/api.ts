@@ -3,11 +3,11 @@ import { IChat } from "../models/IChat";
 import { IProfile } from "../models/IProfile";
 
 const $host = axios.create({
-    baseURL: "http://localhost:5555/1.0/api",
+    baseURL: "https://mern-network.onrender.com/1.0/api",
 })
 
 const $authHost = axios.create({
-    baseURL: "http://localhost:5555/1.0/api"
+    baseURL: "https://mern-network.onrender.com/1.0/api"
 })
 
 $authHost.interceptors.request.use((config: any) => {
