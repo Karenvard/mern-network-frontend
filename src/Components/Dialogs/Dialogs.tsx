@@ -10,6 +10,7 @@ import { IMessage } from '../../models/IMessage';
 interface IProps {
     chat: IChat
     partner: IProfile
+    getChats: Function
 }
 
 const Dialogs: FC<IProps> = (props) => {
@@ -34,6 +35,10 @@ const Dialogs: FC<IProps> = (props) => {
         socket.current.onmessage = (event: any) => {
             setMessages(prev => [...prev, JSON.parse(event.data)])
         }
+    }, [props.chat])
+
+    useEffect(() => {
+        dispatch(props.getChats())
     }, [props.partner])
 
     async function sendMessage() {
