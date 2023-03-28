@@ -17,25 +17,27 @@ const Dialogs: FC<IProps> = (props) => {
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [message, setMessage] = useState('');
     const {profile} = useAppSelector(state => state.authReducer)
-    const socket = new WebSocket("wss://mern-network.onrender.com");
+    const socket = useRef(new WebSocket("wss://mern-network.onrender.com"));
     useEffect(() => {
+        socket.current.close();
+        socket.current = new WebSocket("wss://mern-network.onrender.com");
     setMessages(props.chat.messages)
-        
-        socket.onopen = () => {
-            socket.send(JSON.stringify({
-                type: "connection",
-                chatID: props.chat._id
-            }))
+        socket.current.onopen = () => {
+            if (socket.current.readyState === WebSocket.OPEN) {
+                socket.current.send(JSON.stringify({
+                    type: "connection",
+                    chatID: props.chat._id
+                }))
+            }
         }
 
-        socket.onmessage = (event) => {
-            console.log(event.data)
+        socket.current.onmessage = (event: any) => {
             setMessages(prev => [...prev, JSON.parse(event.data)])
         }
-    }, [props.chat])
+    }, [props.partner])
 
     async function sendMessage() {
-        socket.send(JSON.stringify({
+        socket.current.send(JSON.stringify({
             type: "message",
             chatID: props.chat._id,
             senderProfile: profile,
