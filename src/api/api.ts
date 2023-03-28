@@ -1,11 +1,13 @@
 import axios from "axios";
+import { IChat } from "../models/IChat";
+import { IProfile } from "../models/IProfile";
 
 const $host = axios.create({
-    baseURL: "https://mern-network.onrender.com/1.0/api",
+    baseURL: "http://localhost:5555/1.0/api",
 })
 
 const $authHost = axios.create({
-    baseURL: "https://mern-network.onrender.com/1.0/api"
+    baseURL: "http://localhost:5555/1.0/api"
 })
 
 $authHost.interceptors.request.use((config: any) => {
@@ -88,6 +90,18 @@ class usersAPIClass {
 
     unFollowUser(id: string) {
         return $authHost.get(`/users/unfollow/${id}`)
+    }
+
+    startChat(id: string) {
+        return $authHost.post(`/users/start/chat`, {id})
+    }
+
+    getChats() {
+        return $authHost.get(`/users/chats`)
+    }
+
+    sendMessage(chat: IChat, text: string) {
+        return $authHost.post(`/users/send/message`, {chat, text})
     }
 }
 

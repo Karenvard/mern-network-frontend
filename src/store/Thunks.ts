@@ -402,6 +402,25 @@ class usersThunksClass {
             }
         }
     })
+
+    getChats = createAsyncThunk('get/chats', async (_, thunkAPI) => {
+        try {
+            const {data} = await usersAPI.getChats();
+            return {
+                chats: data.chats,
+                convPartners: data.convPartners
+            }
+        } catch (e: any) {
+            if (e.message === "Network Error") {
+                return thunkAPI.rejectWithValue({
+                    type: "network-error",
+                    body: "Проблемы с соеденением, попробуйте пожалуйста позже"
+                })
+            } else {
+                console.log(e)
+            }
+        }
+    })
 }
 
 export const usersThunks = new usersThunksClass()

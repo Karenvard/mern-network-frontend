@@ -9,7 +9,9 @@ import {authThunks} from "../../store/Thunks";
 const Panel = () => {
     const dispatch = useAppDispatch();
     const {isAuth} = useAppSelector(state => state.authReducer)
-    const {login} = useAppSelector(state => state.authReducer.profile)
+    const login = useAppSelector(state => {
+        return state.authReducer.profile.login
+    });
     function Logout() {
         dispatch(authThunks.logout())
     }

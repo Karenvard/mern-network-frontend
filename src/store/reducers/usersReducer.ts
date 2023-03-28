@@ -2,11 +2,15 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IProfile} from "../../models/IProfile";
 import {usersThunks} from "../Thunks";
 import {IError} from "../../models/IError";
+import { IMessage } from "../../models/IMessage";
+import { IChat } from "../../models/IChat";
 
 interface usersState {
     isLoading: boolean
     error: IError
     users: IProfile[]
+    chats: IChat[]
+    convPartners: IProfile[]
     totalCount: number
     currentUser: IProfile
     message: {
@@ -19,6 +23,8 @@ let initialState: usersState = {
     isLoading: false,
     error: {},
     users: [],
+    chats: [],
+    convPartners: [],
     currentUser: {
         _id: null,
         userId: null,
@@ -116,6 +122,21 @@ export const usersSlice = createSlice({
             state.isLoading = true;
         },
         [usersThunks.setUserProfile.rejected.type]: (state, action: PayloadAction<IError>) => {
+            state.isLoading = false;
+            state.message = {};
+            state.error = action.payload;
+        },
+
+        [usersThunks.getChats.fulfilled.type]: (state, action: PayloadAction<{chats: IChat[], convPartners: IProfile[]}>) => {
+            state.isLoading = false;
+            state.error = {};
+            state.chats = action.payload.chats;
+            state.convPartners = action.payload.convPartners;
+        },
+        [usersThunks.getChats.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [usersThunks.getChats.rejected.type]: (state, action: PayloadAction<IError>) => {
             state.isLoading = false;
             state.message = {};
             state.error = action.payload;

@@ -8,6 +8,7 @@ import {useAppDispatch} from "../../hooks/hooks";
 import {IProfile} from "../../models/IProfile";
 import {usersThunks} from "../../store/Thunks";
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 const User = (props: IProfile) => {
     const dispatch = useAppDispatch();
@@ -21,6 +22,12 @@ const User = (props: IProfile) => {
             dispatch(usersThunks.unFollowUser(props.userId))
         }
     }
+
+    async function startChat(id: string | null) {
+        if (id) {
+            await usersAPI.startChat(id);
+        }
+    }
     return <div className={classes.userContainer}>
         <img className={classes.userPhoto} src={props.photos.small || UserIcon} alt=""/>
         <NavLink to={`/profile/${props.userId}`}><h3>{props.name}</h3></NavLink>
@@ -29,6 +36,8 @@ const User = (props: IProfile) => {
         {props.followed
             ? <Button onClick={UnFollow}>Unfollow</Button>
             : <Button onClick={Follow} type={"primary"}>Follow</Button>}
+        <br/>
+        <Button onClick={() => startChat(props.userId)} type={"primary"}>Start Chat</Button>
     </div>
 };
 

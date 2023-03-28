@@ -107,6 +107,22 @@ export const authSlice = createSlice({
         },
         [authThunks.getAuthProfile.rejected.type]: (state, action: PayloadAction<IError>) => {
             state.isLoading = false;
+            state.isAuth = false;
+            state.profile = {
+                _id: null,
+                userId: null,
+                login: null,
+                name: null,
+                vorname: null,
+                aboutMe: null,
+                status: null,
+                photos: {
+                    large: null,
+                    small: null,
+                },
+                posts: null,
+                followed: null,
+            }
             state.message = '';
             state.error = action.payload;
         },

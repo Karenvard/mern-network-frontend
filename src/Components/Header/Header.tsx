@@ -10,6 +10,7 @@ import {useAppSelector} from "../../hooks/hooks";
 import Users from "../Users/Users";
 import Register from "../Register/Register";
 import Dialogs from "../Dialogs/Dialogs";
+import DialogsPage from '../Dialogs/DialogsPage';
 
 const Header = () => {
     const {isAuth} = useAppSelector(state => state.authReducer)
@@ -23,7 +24,7 @@ const Header = () => {
                 <Route path={"/profile"} element={<Profile/>}/>
                 <Route path={"/"} element={<Navigate to={"/profile"}/>}/>
                 <Route path={"/users"} element={<Users/>}/>
-                <Route path={"/dialogs"} element={<Dialogs/>}/>
+                <Route path={"/dialogs"} element={<DialogsPage/>}/>
             </Routes></div>
 
             : <Routes>
