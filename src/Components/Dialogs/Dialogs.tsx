@@ -17,7 +17,7 @@ const Dialogs: FC<IProps> = (props) => {
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [message, setMessage] = useState('');
     const {profile} = useAppSelector(state => state.authReducer)
-    const socket = new WebSocket("ws://localhost:5555");
+    const socket = new WebSocket("wss://mern-network.onrender.com");
     useEffect(() => {
     setMessages(props.chat.messages)
         
