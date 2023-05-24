@@ -1,13 +1,15 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IProfile} from "../../models/IProfile";
+import {createSlice, PayloadAction, Slice} from "@reduxjs/toolkit";
+import {IProfile} from "../../utils/models/IProfile";
 import {authThunks} from "../Thunks";
-import {IError} from "../../models/IError";
+import {IError} from "../../utils/models/IError";
 
 interface authState {
     error: IError
     isLoading: boolean
     isAuth: boolean
-    captchaURL: string | null
+    activePopups: string[]
+    captchaURL: string
+    photoPreview: string
     profile: IProfile
     message: string
 }
@@ -17,13 +19,15 @@ let initialState: authState = {
     error: {},
     isLoading: false,
     isAuth: false,
-    captchaURL: null,
+    activePopups: [],
+    captchaURL: '',
+    photoPreview: '',
     profile: {
         _id: null,
         userId: null,
         login: null,
         name: null,
-        vorname: null,
+        surname: null,
         aboutMe: null,
         status: null,
         photos: {
@@ -35,10 +39,10 @@ let initialState: authState = {
     },
 }
 
-export const authSlice = createSlice({
-    reducers: {},
+export const authSlice: Slice = createSlice({
     name: "authSlice",
     initialState,
+    reducers: {},
     extraReducers: {
         [authThunks.register.fulfilled.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
@@ -76,7 +80,7 @@ export const authSlice = createSlice({
                 userId: null,
                 login: null,
                 name: null,
-                vorname: null,
+                surname: null,
                 aboutMe: null,
                 status: null,
                 photos: {
@@ -113,7 +117,7 @@ export const authSlice = createSlice({
                 userId: null,
                 login: null,
                 name: null,
-                vorname: null,
+                surname: null,
                 aboutMe: null,
                 status: null,
                 photos: {
@@ -143,6 +147,7 @@ export const authSlice = createSlice({
         [authThunks.setAuthHeader.fulfilled.type]: (state) => {
             state.isLoading = false;
             state.error = {};
+
         },
         [authThunks.setAuthHeader.pending.type]: (state) => {
             state.isLoading = true;
@@ -268,6 +273,35 @@ export const authSlice = createSlice({
         [authThunks.setAuthProfile.rejected.type]: (state, action: PayloadAction<IError>) => {
             state.isLoading = false;
             state.message = '';
+            state.error = action.payload;
+        },
+
+        [authThunks.getPhotoPreview.fulfilled.type]: (state, action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.error = {};
+            state.photoPreview = action.payload;
+        },
+        [authThunks.getPhotoPreview.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [authThunks.getPhotoPreview.rejected.type]: (state, action: PayloadAction<IError>) => {
+            state.isLoading = false;
+            state.message = '';
+            state.error = action.payload;
+        },
+
+
+        [authThunks.clearPhotoPreview.fulfilled.type]: (state, action: PayloadAction) => {
+            state.isLoading = false;
+            state.error = {};
+            state.photoPreview = "";
+        },
+        [authThunks.clearPhotoPreview.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [authThunks.clearPhotoPreview.rejected.type]: (state, action: PayloadAction<IError>) => {
+            state.isLoading = false;
+            state.message = "";
             state.error = action.payload;
         }
     }

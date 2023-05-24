@@ -1,0 +1,65 @@
+.container {
+    z-index: 1;
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 10vh;
+    background-color: var(--my-red);
+
+    a {
+        text-decoration: none;
+    }
+
+    .activeMenu {
+        transform: translateX(0);
+    }
+
+    span {
+        top: -0.1em;
+        left: 1em;
+        position: relative;
+        color: var(--my-white);
+        font-size: 5em;
+    }
+
+    & .menu__trigger {
+        z-index: 10;
+        margin-top: 1em;
+        z-index: 100;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 6.5vw;
+        right: 6em;
+        transition: transform 1s ease 0s;
+
+        & > div {
+            z-index: 10;
+            position: relative;
+            margin-top: 0.7em;
+            width: 4em;
+            height: 0.7vh;
+            background-color: var(--my-white);
+            transition: transform 1s ease 0s, opacity 0.5s ease 0.3s;
+        }
+    }
+
+    & .triggered {
+        transform: translateX(-11vw);
+        transition: transform 0.7s ease 0.3s;
+
+        & > div {
+            transition: transform 1s ease 0s, opacity 0.5s ease 0s;
+            &:nth-child(1) {
+                transform: rotate(45deg) translateY(1.4vw);
+                
+            }
+            &:nth-child(2) {
+                opacity: 0;
+            }
+            &:nth-child(3) {
+                transform: rotate(-45deg) translateY(-2.7vh);
+            }
+        }
+    }
+}

@@ -1,0 +1,223 @@
+.container {
+    display: block;
+    position: relative;
+    top: 10vh;
+    width: 100vw;
+    background-color: var(--my-white);
+    height: fit-content;
+
+    .header {
+        width: 100%;
+        height: 40vh;
+
+        > .headerIMG {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        > button {
+            > img {
+                width: 2vw;
+                margin-right: 0.5vw;
+            }
+            font-size: 1vmax;
+            position: absolute;
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 17vw;
+            right: 3vw;
+            top: 32vh;
+            z-index: 0;
+            background-color: white;
+            border-style: solid;
+            border-radius: 100px;
+            border-width: 0;
+        }
+    }
+
+    .info {
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        flex-direction: row;
+
+        .profileAboutMe {
+            width: 40vw;
+            height: 20vh;
+            overflow-wrap: break-word;
+        }
+
+        .statusInput {
+            border-style: solid;
+            border-width: 1px;
+            width: 13vw;
+            height: 4vh;
+            font-size: 2em;
+        }
+
+        img {
+            position: relative;
+            left: 8vw;
+            top: 5vh;
+            height: 25vh;
+            width: 15vw;
+            border-style: solid;
+            border-radius: 50%;
+            border-color: var(--my-red);
+            border-width: 0.8vw;
+            cursor: pointer;
+        }
+
+        div {
+            position: relative;
+            top: 7vh;
+            left: 12vw;
+            width: 33.3%;
+            span {
+                position: relative;
+                &:nth-child(1) {
+                    font-size: 5em;
+                }
+                &:nth-child(3) {
+                    font-size: 2em;
+                }
+            }
+        }
+
+        > p, > textarea {
+            background-color: var(--my-white);
+            position: relative;
+            font-size: 1.5em;
+            font-family: 'Montserrat', sans-serif;
+            top: 7vh;
+            left: 3vw;
+            width: 40vw;
+            height: 10px;
+        }
+
+    }
+
+    .posts {
+        .lastPostTitle {
+            position: relative;
+            font-size: 5vw;
+            margin-left: calc(50% - 10vw);
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+
+        .lastPost {
+            position: relative;
+            top: 4vh;
+            left: 5%;
+            width: 90%;
+            height: 150vh;
+            background-color: var(--my-green);
+
+            img {
+                position: relative;
+                width: 90%;
+                left: 5%;
+                top: 5%;
+            }
+
+            .lastPostDescription {
+                background-color: var(--my-white);
+                position: relative;
+                width: 90%;
+                height: 30vh;
+                left: 5%;
+                top: 10%;
+                display: block;
+            }
+
+            .tools {
+                img {
+                    width: 5vw;
+                    left: 5vw;
+                    &:nth-child(2) {
+                        margin-left: 5vw;
+                    }
+                }
+                position: absolute;
+                bottom: 3.5vh;
+            }
+        }
+    }
+}
+
+.HeaderPopupContainer {
+    width: 60vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > span {
+        margin-top: 5vh;
+        font-size: 3em;
+        font-weight: 600;
+    }
+
+    > input[type="file"] {
+        display: none;
+    }
+    
+    > .custom_file_upload {
+        width: 10vw;
+        height: 4vh;
+        text-align: center;
+        vertical-align: center;
+        font-size: 1.67em;
+        margin-top: 5vh;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: var(--my-green);
+        color: var(--my-white);
+        font-weight: 700;
+        border: 0 solid;
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+            background-color: #003402;
+        }
+    }
+
+
+    .previewHeader {
+        width: 100%;
+        height: 40%;
+        margin-top: 3vh;
+    }
+
+    .previewPhoto {
+        margin-top: 5vh;
+        height: 25vh;
+        width: 15vw;
+        border-style: solid;
+        border-radius: 50%;
+        border-color: var(--my-red);
+        border-width: 0.8vw;
+    }
+
+    .uploadHeaderBTN {
+        border-style: solid;
+        border-width: 0;
+        border-radius: 20px;
+        background-color: var(--my-red);
+        text-decoration: none;
+        color: var(--my-white);
+        cursor: pointer;
+        width: 15vw;
+        height: 8vh;
+        font-size: 3em;
+        font-weight: 900;
+        margin-top: 10vh;
+    }
+}

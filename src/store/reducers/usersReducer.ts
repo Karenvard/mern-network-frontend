@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IProfile} from "../../models/IProfile";
+import {IProfile} from "../../utils/models/IProfile";
 import {usersThunks} from "../Thunks";
-import {IError} from "../../models/IError";
-import { IMessage } from "../../models/IMessage";
-import { IChat } from "../../models/IChat";
+import {IError} from "../../utils/models/IError";
+import { IMessage } from "../../utils/models/IMessage";
+import { IChat } from "../../utils/models/IChat";
 
 interface usersState {
     isLoading: boolean
@@ -30,7 +30,7 @@ let initialState: usersState = {
         userId: null,
         login: null,
         name: null,
-        vorname: null,
+        surname: null,
         aboutMe: null,
         status: null,
         photos: {

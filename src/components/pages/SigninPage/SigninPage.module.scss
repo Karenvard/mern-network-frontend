@@ -1,0 +1,77 @@
+.container {
+    position: relative;
+    display: block;
+    top: 10vh;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--my-white);
+
+    .form {
+        border-style: solid;
+        border-width: 0;
+        border-radius: 6%;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--my-green);
+        align-items: center;
+        justify-content: center;
+        top: 10vh;
+        left: 25vw;
+        width: 50vw;
+        height: 50vh;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            > span {
+                margin-bottom: -2vh;
+                position: relative;
+                font-size: 1.5em;
+            }
+            > input {
+                font-size: 2em;
+                width: 20vw;
+                height: 2vw;
+                margin-top: 2vh;
+                border: none;
+                background-color: var(--my-white);
+            }
+        }
+
+        .rememberMe {
+            margin-top: 5vh;
+            margin-bottom: -2vh;
+            span {
+                margin-left: 1vw;
+                font-size: 1.5em;
+            }
+            > input {
+                transform: scale(2, 2);
+            }
+        }
+
+        .loginBtn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--my-red);
+            color: white;
+            width: 10vw;
+            height: 6vh;
+            font-size: 2em;
+            font-weight: 600;
+            margin-top: 4vh;
+        }
+
+        .Msg {
+            margin-top: 2vh;
+            > a {
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

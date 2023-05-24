@@ -1,13 +1,14 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {authAPI, usersAPI} from "../api/api";
-import {ISignForm} from "../models/ISignForm";
-import {IProfile} from "../models/IProfile";
-
+import authAPI from "../utils/api/authAPI";
+import usersAPI from "../utils/api/usersAPI";
+import {ISignForm} from "../utils/models/ISignForm";
+import {IProfile} from "../utils/models/IProfile";
+import { RootState } from "./Store";
 
 class authThunksClass {
-    register = createAsyncThunk('register', async ({login, password, name, vorname}: ISignForm, thunkAPI) => {
+    register = createAsyncThunk('register', async ({login, password, name, surname}: ISignForm, thunkAPI) => {
         try {
-            const {data} = await authAPI.register(login, password, name, vorname)
+            const {data} = await authAPI.register(login, password, name, surname);
 
             if (data.resultCode === 0) {
                 return data.message
@@ -107,7 +108,7 @@ class authThunksClass {
         try {
             const {data} = await authAPI.setAuthHeader(photo);
             if (data.resultCode === 0) {
-                thunkAPI.dispatch(this.setAuthProfile(data.profile))
+                return thunkAPI.dispatch(this.setAuthProfile(data.profile))
             } else if (data.resultCode === 1) {
                 return thunkAPI.rejectWithValue(data.error)
             }
@@ -302,6 +303,49 @@ class authThunksClass {
             }
         }
     })
+
+    getPhotoPreview = createAsyncThunk('get/photoPreview', async (photo: File, thunkAPI) => {
+        try {
+            const {data} = await authAPI.getPhotoPreview(photo);
+            if (data.resultCode === 0) {
+                return thunkAPI.fulfillWithValue(data.photo);
+            } else {
+                return thunkAPI.rejectWithValue(data.error);
+            }
+        } catch (e: any) {
+            if (e.message === "Network Error") {
+                return thunkAPI.rejectWithValue({
+                    type: "network-error",
+                    body: "Проблемы с соеденением, попробуйте пожалуйста позже"
+                })
+            } else {
+                console.log(e)
+            }
+        }
+    })
+
+    clearPhotoPreview = createAsyncThunk('clear/photoPreview', async (_, thunkAPI) => {
+        try {
+            const {authReducer} = thunkAPI.getState() as RootState;
+            const targetPhotoPreview = authReducer.photoPreview.split("/")[authReducer.photoPreview.split("/").length - 1] 
+            const response = await authAPI.deletePhotoPreview(targetPhotoPreview);
+            console.log(response)
+            if (response.status = 200) {
+                return;
+            } else {
+                return thunkAPI.rejectWithValue(response.data.error)
+            }
+        } catch (e: any) {
+            if (e.message === "Network Error") {
+                return thunkAPI.rejectWithValue({
+                    type: "network-error",
+                    body: "Проблемы с соеденением, попробуйте пожалуйста позже"
+                })
+            } else {
+                console.log(e)
+            }
+        }
+    })
 }
 
 class usersThunksClass {
@@ -423,5 +467,5 @@ class usersThunksClass {
     })
 }
 
-export const usersThunks = new usersThunksClass()
-export const authThunks = new authThunksClass()
+export const usersThunks = new usersThunksClass();
+export const authThunks = new authThunksClass();
