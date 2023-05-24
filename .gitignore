@@ -1,8 +1,8 @@
 /node_modules
 /build
 /dist
-.DS_STORE
+.DS_Store
 /.idea
 */.idea
 *.yml
-*/.DS_STORE
+*/.DS_Store
