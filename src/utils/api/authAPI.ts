@@ -1,12 +1,13 @@
+import { ServerMessage } from "../models/ServerMessage";
 import {$host, $authHost} from "./api";
 
 class authAPI {
-    register(login: string, password: string, name?: string, surname?: string) {
-        return $host.post("/auth/register", {login, password, name, surname})
+    signup(username: string, password: string, name: string, surname: string) {
+        return $host.post<ServerMessage>("/auth/signup", {username, password, name, surname})
     }
 
-    login(login: string, password: string, rememberMe: boolean = false) {
-        return $host.post("/auth/login", {login, password, rememberMe})
+    signin(username: string, password: string, rememberMe: boolean = false) {
+        return $host.post("/auth/signin", {username, password, rememberMe})
     }
 
     getAuthProfile() {
@@ -20,7 +21,6 @@ class authAPI {
     }
 
     setAuthHeader(photo: File) {
-        console.log("eye")
         const formData = new FormData()
         formData.append("photo", photo)
         return $authHost.post("/auth/header", formData)
