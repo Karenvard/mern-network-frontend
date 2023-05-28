@@ -1,5 +1,6 @@
 import {$authHost} from "./api";
-import {IChat} from "./../models/IChat";
+import {IChat} from "../models/IChat"
+
 
 class usersAPI {
     getUsers(page: number, pageSize: number) {

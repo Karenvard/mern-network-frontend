@@ -1,5 +1,5 @@
 export interface ISignForm {
-    login: string
+    username: string
     password: string
     rememberMe?: boolean
     name?: string

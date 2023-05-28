@@ -39,7 +39,7 @@ const MyNavLink: FC<PropsWithChildren<IProps>> = ({children, to}) => {
 
                 : <div className={classes.menuLink}>
                     <span onMouseEnter={handleEnter} onMouseOut={handleOut} className={classes.a}
-                          onClick={e => dispatch(authThunks.logout())}>{children}</span>
+                          onClick={_ => dispatch(authThunks.signout())}>{children}</span>
                     <div ref={endLine}></div>
                 </div>}
         </>

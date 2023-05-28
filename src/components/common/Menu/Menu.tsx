@@ -22,13 +22,12 @@ const Menu: FC<IProps> = (props) => {
             <MyNavLink to='/profile'>Profile</MyNavLink>
             <MyNavLink to='/friends'>Friends</MyNavLink>
             <MyNavLink to='/dialogs'>Dialogs</MyNavLink>
-            <MyNavLink to='/users'>Users</MyNavLink>
-            <MyNavLink>Logout</MyNavLink>
+            <MyNavLink>Sign out</MyNavLink>
              </> 
              
              : <>
-                <MyNavLink to='/register'>Register</MyNavLink>
-                <MyNavLink to='/login'>Login</MyNavLink>
+                <MyNavLink to='/signup'>Sign up</MyNavLink>
+                <MyNavLink to='/signin'>Sign in</MyNavLink>
                 <div style={{display: "none"}}></div>
               </>}
         </div>

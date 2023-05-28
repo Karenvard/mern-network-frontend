@@ -5,7 +5,7 @@ import {IError} from "../../utils/models/IError";
 
 interface authState {
     error: IError
-    isLoading: boolean
+    isLoading: boolean  
     isAuth: boolean
     activePopups: string[]
     captchaURL: string
@@ -23,79 +23,73 @@ let initialState: authState = {
     captchaURL: '',
     photoPreview: '',
     profile: {
-        _id: null,
-        userId: null,
-        login: null,
+        id: null,
+        username: null,
         name: null,
         surname: null,
         aboutMe: null,
         status: null,
-        photos: {
-            large: null,
-            small: null,
-        },
+        avatar: null,
+        header: null,
         posts: null,
         followed: null,
     },
 }
 
-export const authSlice: Slice = createSlice({
+export const authSlice: Slice<authState> = createSlice({
+    reducers: {},
     name: "authSlice",
     initialState,
-    reducers: {},
     extraReducers: {
-        [authThunks.register.fulfilled.type]: (state, action: PayloadAction<string>) => {
+        [authThunks.signup.fulfilled.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = {};
             state.message = action.payload;
         },
-        [authThunks.register.pending.type]: (state) => {
+        [authThunks.signup.pending.type]: (state) => {
             state.isLoading = true;
         },
-        [authThunks.register.rejected.type]: (state, action: PayloadAction<IError>) => {
+        [authThunks.signup.rejected.type]: (state, action: PayloadAction<IError>) => {
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
         },
 
-        [authThunks.login.fulfilled.type]: (state) => {
+        [authThunks.signin.fulfilled.type]: (state) => {
             state.isLoading = false;
             state.error = {};
             state.isAuth = true;
         },
-        [authThunks.login.pending.type]: (state) => {
+        [authThunks.signin.pending.type]: (state) => {
             state.isLoading = true;
         },
-        [authThunks.login.rejected.type]: (state, action: PayloadAction<IError>) => {
+        [authThunks.signin.rejected.type]: (state, action: PayloadAction<IError>) => {
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
         },
 
-        [authThunks.logout.fulfilled.type]: (state) => {
+        [authThunks.signout.fulfilled.type]: (state) => {
             state.isLoading = false;
             state.error = {};
             state.profile = {
-                _id: null,
-                userId: null,
-                login: null,
+                id: null, 
+                username: null,
                 name: null,
                 surname: null,
                 aboutMe: null,
                 status: null,
-                photos: {
-                    large: null,
-                    small: null,
-                },
+                avatar: null,
+                header: null,
                 posts: null,
                 followed: null,
             }
             state.isAuth = false;
         },
-        [authThunks.logout.pending.type]: (state) => {
+        [authThunks.signout.pending.type]: (state) => {
             state.isLoading = true;
         },
-        [authThunks.logout.rejected.type]: (state, action: PayloadAction<IError>) => {
+        [authThunks.signout.rejected.type]: (state, action: PayloadAction<IError>) => {
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
@@ -113,17 +107,14 @@ export const authSlice: Slice = createSlice({
             state.isLoading = false;
             state.isAuth = false;
             state.profile = {
-                _id: null,
-                userId: null,
-                login: null,
+                id: null,
+                username: null,
                 name: null,
                 surname: null,
                 aboutMe: null,
                 status: null,
-                photos: {
-                    large: null,
-                    small: null,
-                },
+                avatar: null,
+                header: null,
                 posts: null,
                 followed: null,
             }

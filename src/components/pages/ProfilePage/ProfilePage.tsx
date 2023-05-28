@@ -21,7 +21,7 @@ import Popup from '../../common/Popup/Popup';
 const ProfilePage: FC = () => {
     const dispatch = useAppDispatch();
     const containerRef: RefObject<any> = useRef();
-    const {profile, photoPreview} = useAppSelector(state => state.authReducer)
+    const {profile, photoPreview} = useAppSelector(state => state.authReducer);
     const [newStatus, setNewStatus] = useState<string>('');
     const [isEditStatus, setIsEditStatus] = useState<boolean>(false);
     const [isEditAboutMe, setIsEditAboutMe] = useState<boolean>(false);
@@ -102,14 +102,14 @@ const ProfilePage: FC = () => {
 
         <div ref={containerRef} className={classes.container}>
             <div className={classes.header}>
-                {profile.photos.large 
-                ? <img className={classes.headerIMG} src={profile.photos.large} alt="" /> 
+                {profile.header 
+                ? <img className={classes.headerIMG} src={profile.header} alt="" /> 
                 : <div className={classes.headerIMG} style={{background: "var(--my-green)"}}></div>}
                 <button onClick={e => setHeaderPopup(true)} ><img src={cameraIcon} alt="" /> Change your header photo</button>
             </div>
 
             <div className={classes.info}>
-                <img onClick={e => setPhotoPopup(true)} src={profile.photos.small || userPhoto} alt="" />
+                <img onClick={e => setPhotoPopup(true)} src={profile.avatar || userPhoto} alt="" />
                 <div>
                     <span>{profile.name}</span> <br />
                     {isEditStatus 

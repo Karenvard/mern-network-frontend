@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction, Slice} from "@reduxjs/toolkit";
 import {IProfile} from "../../utils/models/IProfile";
 import {usersThunks} from "../Thunks";
 import {IError} from "../../utils/models/IError";
@@ -26,17 +26,14 @@ let initialState: usersState = {
     chats: [],
     convPartners: [],
     currentUser: {
-        _id: null,
-        userId: null,
-        login: null,
+        id: null,
+        username: null,
         name: null,
         surname: null,
         aboutMe: null,
         status: null,
-        photos: {
-            large: null,
-            small: null,
-        },
+        avatar: null,
+        header: null,
         posts: null,
         followed: null
     },
@@ -81,7 +78,7 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.error = {};
             state.users.forEach(u => {
-                if (u.userId === action.payload) {
+                if (u.id === action.payload) {
                     u.followed = true;
                 }
             })
@@ -99,7 +96,7 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.error = {};
             state.users.forEach(u => {
-                if (u.userId === action.payload) {
+                if (u.id === action.payload) {
                     u.followed = false;
                 }
             })

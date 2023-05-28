@@ -5,26 +5,26 @@ import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../../utils/hooks';
 import {authThunks} from '../../../store/Thunks';
 
-const RegisterPage: FC = () => {
+const SignupPage: FC = () => {
     const dispatch = useAppDispatch();
-    const [loginInput, setLoginInput] = useState<string>('');
+    const [usernameInput, setUsernameInput] = useState<string>('');
     const [nameInput, setNameInput] = useState<string>('');
     const [surnameInput, setSurnameInput] = useState<string>('');
     const [passwordInput, setPasswordInput] = useState<string>('');
     const [repeatPasswordInput, setRepeatPasswordInput] = useState<string>('');
     const [agreePolicyInput, setAgreePolicyInput] = useState<boolean>(false);
 
-    function registerHandler() {
+    function SignupHandler() {
         if (passwordInput === repeatPasswordInput && agreePolicyInput === true) {
-            dispatch(authThunks.register({login: loginInput, password: passwordInput, name: nameInput, surname: surnameInput}));
+            dispatch(authThunks.signup({username: usernameInput, password: passwordInput, name: nameInput, surname: surnameInput}));
         }
     }
     return (
         <div className={classes.container}>
             <div className={classes.form}>
                 <div>
-                    <span>Login</span>
-                    <input onChange={e => setLoginInput(e.target.value)} type="text" /> 
+                    <span>Username</span>
+                    <input onChange={e => setUsernameInput(e.target.value)} type="text" /> 
                     <br />
 
                     <span>Name</span>
@@ -45,11 +45,11 @@ const RegisterPage: FC = () => {
 
                 <section className={classes.policy}><input onClick={(e: any) => setAgreePolicyInput(e.target.checked)} type="checkbox" />
                 <span>I agree the policy . . .</span></section> <br />
-                <div onClick={registerHandler} className={classes.registerBtn}>Register</div>
-                <span className={classes.Msg}>Have you already registered? - <NavLink to="/login">Login</NavLink></span>
+                <div onClick={SignupHandler} className={classes.registerBtn}>Sign up</div>
+                <span className={classes.Msg}>Have you already signed up? - <NavLink to="/signin">Sign in</NavLink></span>
             </div>
         </div>
     );
 }
 
-export default RegisterPage;
+export default SignupPage;

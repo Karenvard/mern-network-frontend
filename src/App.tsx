@@ -4,8 +4,8 @@ import Panel from "./components/common/Panel/Panel";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 import UsersPage from "./components/pages/UsersPage/UsersPage";
 import { useAppDispatch, useAppSelector } from "./utils/hooks";
-import RegisterPage from "./components/pages/SignupPage/SignupPage";
-import LoginPage from "./components//pages/SigninPage/SigninPage";
+import SignupPage from "./components/pages/SignupPage/SignupPage";
+import SigninPage from "./components//pages/SigninPage/SigninPage";
 import { useEffect } from "react";
 import { authThunks } from "./store/Thunks";
 
@@ -26,9 +26,9 @@ const App = () => {
             </Routes> 
             
             : <Routes>
-                <Route path="*" element={<LoginPage/>}/>
-                <Route path="/register" element={<RegisterPage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
+                <Route path="*" element={<SigninPage/>}/>
+                <Route path="/signup" element={<SignupPage/>}/>
+                <Route path="/signin" element={<SigninPage/>}/>
              </Routes>}
         </div>
     </BrowserRouter>
