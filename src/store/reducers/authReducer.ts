@@ -9,7 +9,6 @@ interface authState {
     isAuth: boolean
     activePopups: string[]
     captchaURL: string
-    photoPreview: string
     profile: IProfile
     message: string
 }
@@ -21,7 +20,6 @@ let initialState: authState = {
     isAuth: false,
     activePopups: [],
     captchaURL: '',
-    photoPreview: '',
     profile: {
         id: null,
         username: null,
@@ -53,6 +51,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.signin.fulfilled.type]: (state) => {
@@ -67,6 +66,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.signout.fulfilled.type]: (state) => {
@@ -93,6 +93,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.getAuthProfile.fulfilled.type]: (state) => {
@@ -120,6 +121,7 @@ export const authSlice: Slice<authState> = createSlice({
             }
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.setAuthPhoto.fulfilled.type]: (state) => {
@@ -133,6 +135,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.setAuthHeader.fulfilled.type]: (state) => {
@@ -147,6 +150,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.setAuthAboutMe.fulfilled.type]: (state) => {
@@ -160,6 +164,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.setAuthStatus.fulfilled.type]: (state) => {
@@ -173,6 +178,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.addAuthPost.fulfilled.type]: (state) => {
@@ -186,6 +192,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.addComment.fulfilled.type]: (state) => {
@@ -199,6 +206,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.likePost.fulfilled.type]: (state) => {
@@ -212,6 +220,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.likeComment.fulfilled.type]: (state) => {
@@ -225,6 +234,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.disLikePost.fulfilled.type]: (state) => {
@@ -238,6 +248,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.disLikeComment.fulfilled.type]: (state) => {
@@ -251,6 +262,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [authThunks.setAuthProfile.fulfilled.type]: (state, action: PayloadAction<IProfile>) => {
@@ -265,35 +277,7 @@ export const authSlice: Slice<authState> = createSlice({
             state.isLoading = false;
             state.message = '';
             state.error = action.payload;
-        },
-
-        [authThunks.getPhotoPreview.fulfilled.type]: (state, action: PayloadAction<string>) => {
-            state.isLoading = false;
-            state.error = {};
-            state.photoPreview = action.payload;
-        },
-        [authThunks.getPhotoPreview.pending.type]: (state) => {
-            state.isLoading = true;
-        },
-        [authThunks.getPhotoPreview.rejected.type]: (state, action: PayloadAction<IError>) => {
-            state.isLoading = false;
-            state.message = '';
-            state.error = action.payload;
-        },
-
-
-        [authThunks.clearPhotoPreview.fulfilled.type]: (state, action: PayloadAction) => {
-            state.isLoading = false;
-            state.error = {};
-            state.photoPreview = "";
-        },
-        [authThunks.clearPhotoPreview.pending.type]: (state) => {
-            state.isLoading = true;
-        },
-        [authThunks.clearPhotoPreview.rejected.type]: (state, action: PayloadAction<IError>) => {
-            state.isLoading = false;
-            state.message = "";
-            state.error = action.payload;
+            console.log(action.payload);
         }
     }
 })

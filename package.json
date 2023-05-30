@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "mern-network",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5684",
@@ -8,14 +8,8 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.9",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
-    "ant-design": "^1.0.0",
     "axios": "^1.2.1",
     "classnames": "^2.3.2",
-    "fs": "^0.0.1-security",
     "npm": "^9.6.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -23,9 +17,7 @@
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
     "sass": "^1.60.0",
-    "scss": "^0.2.4",
-    "typescript": "^4.9.4",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,5 +47,11 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4"
+  }
 }

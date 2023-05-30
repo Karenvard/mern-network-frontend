@@ -12,34 +12,34 @@ class authAPI {
         return $host.post<ServerMessage & {error: IError, token: string}>("/auth/signin", {username, password, rememberMe})
     }
 
-    getAuthProfile() {
+    getProfile() {
         return $authHost.get<{profile: IProfile} & {error: IError}>("/auth/profile")
     }
 
-    setAuthPhoto(photo: File) {
+    setAvatar(photo: File) {
         const formData = new FormData()
         formData.append("photo", photo)
         return $authHost.post<ServerMessage & {error: IError}>("/auth/photo", formData)
     }
 
-    setAuthHeader(photo: File) {
+    setHeader(photo: File) {
         const formData = new FormData()
         formData.append("photo", photo)
         return $authHost.post<ServerMessage & {error: IError}>("/auth/header", formData)
     }
 
-    setAuthAboutMe(value: string) {
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/aboutMe", {value})
+    setAboutMe(aboutMe: string) {
+        return $authHost.post<ServerMessage & {error: IError}>("/auth/aboutMe", {aboutMe})
     }
 
-    setAuthStatus(value: string) {
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/status", {value})
+    setStatus(status: string) {
+        return $authHost.post<ServerMessage & {error: IError}>("/auth/status", {status})
     }
 
     addPost(Title: string, Description: string, photo: File) {
         const formData = new FormData();
         formData.append('photo', photo)
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/addPost", {Title, Description, formData})
+        return $authHost.post<ServerMessage & {error: IError}>("/auth/addPost", {Title, Description, ...formData});
     }
 
     addComment(Title: string, Body: string, PostId: number) {
@@ -50,26 +50,16 @@ class authAPI {
         return $authHost.post<ServerMessage & {error: IError}>("/auth/likePost", {userId, postId})
     }
 
-    likeComment(PostId: Number, CommentId: Number) {
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/likeComment", {PostId, CommentId})
+    likeComment(postId: string, commentId: string, userId: string) {
+        return $authHost.post<ServerMessage & {error: IError}>("/auth/likeComment", {postId, commentId, userId})
     }
 
-    disLikePost(PostId: Number) {
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/disLikePost", {PostId})
+    disLikePost(postId: string, userId: string) {
+        return $authHost.post<ServerMessage & {error: IError}>("/auth/disLikePost", {postId, userId})
     }
 
-    disLikeComment(PostId: Number, CommentId: Number) {
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/disLikeComment", {PostId, CommentId})
-    }
-
-    getPhotoPreview(photo: File) {
-        const formData = new FormData();
-        formData.append("photo", photo);
-        return $authHost.post<ServerMessage & {error: IError, photo: string}>("/auth/photoPreview", formData);
-    }
-
-    deletePhotoPreview(fileName: string) {
-        return $authHost.post<ServerMessage & {error: IError}>("/auth/deletePhotoPreview", {fileName});
+    disLikeComment(postId: string, commentId: string, userId: string) {
+        return $authHost.post<ServerMessage & {error: IError}>("/auth/disLikeComment", {userId, postId, commentId})
     }
 }
 

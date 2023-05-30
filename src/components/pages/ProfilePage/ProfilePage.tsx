@@ -1,100 +1,102 @@
-import React, { FC, useEffect, useState, useRef, RefObject } from 'react';
+import { FC, RefObject, useEffect, useRef, useState } from 'react';
 // @ts-ignore
-import classes from "./ProfilePage.module.scss"
+import classes from "./ProfilePage.module.scss";
 // @ts-ignore
-import headerPhoto from "../../../assets/photos/headerPhoto.webp"
+import headerPhoto from "../../../assets/photos/headerPhoto.webp";
 // @ts-ignore
 import userPhoto from "./../../../assets/photos/userPhoto.png";
 // @ts-ignore
-import heartOutlineICON from "./../../../assets/icons/outlineHeartIcon.png"
+import heartOutlineICON from "./../../../assets/icons/outlineHeartIcon.png";
 // @ts-ignore
-import cameraIcon from "../../../assets/icons/cameraIcon.png"
+import cameraIcon from "../../../assets/icons/cameraIcon.png";
 // @ts-ignore
-import commentICON from "./../../../assets/icons/commentIcon.png"
+import commentICON from "./../../../assets/icons/commentIcon.png";
 // @ts-ignore
-import notUploadedPhoto from "../../../assets/photos/notUploadedImage.png"
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import notUploadedPhoto from "../../../assets/photos/notUploadedImage.png";
 import { authThunks } from '../../../store/Thunks';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import Popup from '../../common/Popup/Popup';
 
 
 const ProfilePage: FC = () => {
     const dispatch = useAppDispatch();
     const containerRef: RefObject<any> = useRef();
-    const {profile, photoPreview} = useAppSelector(state => state.authReducer);
+    const headerPreviewRef = useRef<HTMLImageElement>(null);
+    const avatarPreviewRef = useRef<HTMLImageElement>(null);
+    const {profile} = useAppSelector(state => state.authReducer);
     const [newStatus, setNewStatus] = useState<string>('');
     const [isEditStatus, setIsEditStatus] = useState<boolean>(false);
     const [isEditAboutMe, setIsEditAboutMe] = useState<boolean>(false);
     const [newAboutMe, setNewAboutMe] = useState<string>('');
     const [headerPopup, setHeaderPopup] = useState<boolean>(false);
-    const [photoPopup, setPhotoPopup] = useState<boolean>(false);
-    const [newHeaderPhoto, setNewHeaderPhoto] = useState<File | null>(null);
-    const [newPhoto, setNewPhoto] = useState<File | null>(null);
+    const [deleteHeaderPopup, setDeleteHeaderPopup] = useState<boolean>(false);
+    const [avatarPopup, setAvatarPopup] = useState<boolean>(false);
+    const [newHeader, setNewHeader] = useState<File | null>(null);
+    const [newAvatar, setNewAvatar] = useState<File | null>(null);
+
     function onHeaderSet(e: any) {
-        setNewHeaderPhoto(e.target.files[0]);
-        if (e.target.files[0]) dispatch(authThunks.getPhotoPreview(e.target.files[0]));
+        setNewHeader(e.target.files[0]);
+        if (headerPreviewRef.current) headerPreviewRef.current.src = URL.createObjectURL(e.target.files[0]);
     }
 
-    function onPhotoSet(e: any) {
-        setNewPhoto(e.target.files[0]);
-        if (e.target.files[0]) dispatch(authThunks.getPhotoPreview(e.target.files[0]));
+    function onAvatarSet(e: any) {
+        setNewAvatar(e.target.files[0]);
+        if (avatarPreviewRef.current) avatarPreviewRef.current.src = URL.createObjectURL(e.target.files[0]);
+        console.log(URL.createObjectURL(e.target.files[0]));
     }
 
     function uploadHeaderHandle() {
-        if (newHeaderPhoto) {
-            dispatch(authThunks.setAuthHeader(newHeaderPhoto));
-            setHeaderPopup(false);
-            dispatch(authThunks.clearPhotoPreview());
-            document.body.style.overflowY = "auto";
-        }
+      if (newHeader) {
+        dispatch(authThunks.setAuthHeader(newHeader));
+        setHeaderPopup(false);
+      }
     }
 
-    function uploadPhotoHandle() {
-        if (newPhoto) {
-            dispatch(authThunks.setAuthPhoto(newPhoto));
-            setPhotoPopup(false);
-            dispatch(authThunks.clearPhotoPreview());
-            document.body.style.overflowY = "auto";
-        }
+    function uploadAvatarHandle() {
+      if (newAvatar) {
+        dispatch(authThunks.setAuthPhoto(newAvatar));
+        setAvatarPopup(false);
+      }
     }
 
     useEffect(() => {
-        window.addEventListener("load", function() {
-            dispatch(authThunks.clearPhotoPreview());
-        })
         containerRef.current.style.height = `${containerRef.current.clientHeight + 50}px`
         dispatch(authThunks.getAuthProfile())
         if (profile.status) {
             setNewStatus(profile.status);
         }
-        return function cleanup() {
-            dispatch(authThunks.clearPhotoPreview());
-        }
     }, [])
     return <>
-        <Popup DispatchOnClose={authThunks.clearPhotoPreview} setIsActive={setHeaderPopup} isActive={headerPopup}>
+        <Popup setIsActive={setHeaderPopup} isActive={headerPopup}>
+            <Popup setIsActive={setDeleteHeaderPopup} isActive={deleteHeaderPopup}>
+              <div style={{width: "500px", height: "500px"}}>
+                Are you sure? <br></br>
+                <button>Yes</button> <br></br>
+                <button>!No</button> <br></br>
+              </div>
+            </Popup>
             <div className={classes.HeaderPopupContainer}>
                 <span>Photo preview</span>
-                <img className={classes.previewHeader} src={photoPreview || notUploadedPhoto} alt="" />
+                <img className={classes.previewHeader} ref={headerPreviewRef} src={notUploadedPhoto} alt="" />
                 <label htmlFor="file-upload" className={classes.custom_file_upload}>
                     Upload File
                 </label>
                 <input onChange={onHeaderSet} id="file-upload" type="file"/>
-
+                <button onClick={_ => setDeleteHeaderPopup(true)}>Delete header</button>
                 <button onClick={uploadHeaderHandle} className={classes.uploadHeaderBTN}>Upload</button>
             </div>
         </Popup>
 
-        <Popup DispatchOnClose={authThunks.clearPhotoPreview} setIsActive={setPhotoPopup} isActive={photoPopup}>
+        <Popup setIsActive={setAvatarPopup} isActive={avatarPopup}>
             <div className={classes.HeaderPopupContainer}>
                 <span>Photo preview</span>
-                <img className={classes.previewPhoto} src={photoPreview || userPhoto} alt="" />
+                <img className={classes.previewPhoto} ref={avatarPreviewRef} src={userPhoto} alt="" />
                 <label htmlFor="file-upload" className={classes.custom_file_upload}>
                     Upload File
                 </label>
-                <input onChange={onPhotoSet} id="file-upload" type="file"/>
+                <input onChange={onAvatarSet} id="file-upload" type="file"/>
 
-                <button onClick={uploadPhotoHandle} className={classes.uploadHeaderBTN}>Upload</button>
+                <button onClick={uploadAvatarHandle} className={classes.uploadHeaderBTN}>Upload</button>
             </div>
         </Popup>
 
@@ -109,7 +111,7 @@ const ProfilePage: FC = () => {
             </div>
 
             <div className={classes.info}>
-                <img onClick={e => setPhotoPopup(true)} src={profile.avatar || userPhoto} alt="" />
+                <img onClick={e => setAvatarPopup(true)} src={profile.avatar || userPhoto} alt="" />
                 <div>
                     <span>{profile.name}</span> <br />
                     {isEditStatus 
@@ -117,7 +119,7 @@ const ProfilePage: FC = () => {
                             className={classes.statusInput}
                             maxLength={11}
                             autoFocus
-                            onBlur={e => {setIsEditStatus(false); dispatch(authThunks.setAuthStatus(newStatus))}}
+                            onBlur={_ => {setIsEditStatus(false); dispatch(authThunks.setAuthStatus(newStatus))}}
                             onChange={e => setNewStatus(e.target.value)} 
                             type="text" />
                             

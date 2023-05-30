@@ -1,12 +1,14 @@
 .wrap {
     width: 100vw;
     height: 100vh;
-    position: fixed;
+    position: absolute;
     display: flex;
+    left: calc(-50vw + 50%);
+    top: calc(-50vh + 50%);
     align-items: center;
     justify-content: center;
     z-index: 100;
-    background: rgba(49,49,49,0.8);
+    background: rgba(49,49,49,0.7);
 }
 
 .container {

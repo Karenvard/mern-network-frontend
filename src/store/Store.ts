@@ -13,6 +13,8 @@ export const Store = configureStore({
     reducer: RootReducer
 })
 
+// @ts-ignore
+window.state = Store.getState();
 
 export type RootState = ReturnType<typeof RootReducer>
 export type AppStore = typeof Store

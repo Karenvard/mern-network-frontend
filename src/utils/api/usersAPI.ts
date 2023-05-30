@@ -1,38 +1,36 @@
 import {$authHost} from "./api";
 import {IChat} from "../models/IChat"
+import { IProfile } from "../models/IProfile";
+import { IError } from "../models/IError";
 
 
 class usersAPI {
     getUsers(page: number, pageSize: number) {
-        return $authHost.get(`/users/data?page=${page}&pageSize=${pageSize}`)
+        return $authHost.get<{users: IProfile[], totalCount: number, error: IError}>(`/users/data?page=${page}&pageSize=${pageSize}`)
     }
 
     getUserById(id: string) {
-        return $authHost.get(`/users/data/${id}`)
+        return $authHost.get<{profile: IProfile, error: IError}>(`/users/data/${id}`)
     }
 
     followUser(id: string) {
-        return $authHost.get(`/users/follow/${id}`)
+        return $authHost.get<{error: IError}>(`/users/follow/${id}`)
     }
 
     unFollowUser(id: string) {
-        return $authHost.get(`/users/unfollow/${id}`)
+        return $authHost.get<{error: IError}>(`/users/unfollow/${id}`)
     }
 
     startChat(id: string) {
-        return $authHost.post(`/users/start/chat`, {id})
+        return $authHost.post<{error: IError}>(`/users/start/chat`, {id})
     }
 
     getChats() {
-        return $authHost.get(`/users/chats`)
+        return $authHost.get<{chats: IChat[], convPartners: {userId: string}[], error: IError}>(`/users/chats`)
     }
 
-    sendMessage(chat: IChat, text: string) {
-        return $authHost.post(`/users/send/message`, {chat, text})
-    }
-
-    getLastMessage(partnerId: string) {
-        return $authHost.post(`/users/chats/lastMessage`, {partnerId})
+    sendMessage(to: string, text: string) {
+        return $authHost.post<{error: IError}>(`/users/sendMessage`, {to, text})
     }
 }
 

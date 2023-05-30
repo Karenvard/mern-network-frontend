@@ -72,6 +72,7 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.message = {};
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [usersThunks.followUser.fulfilled.type]: (state, action: PayloadAction<string>) => {
@@ -90,6 +91,7 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.message = {};
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [usersThunks.unFollowUser.fulfilled.type]: (state, action: PayloadAction<string>) => {
@@ -122,6 +124,7 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.message = {};
             state.error = action.payload;
+            console.log(action.payload);
         },
 
         [usersThunks.getChats.fulfilled.type]: (state, action: PayloadAction<{chats: IChat[], convPartners: IProfile[]}>) => {
@@ -137,6 +140,7 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.message = {};
             state.error = action.payload;
+            console.log(action.payload);
         }
     }
 })
