@@ -31,7 +31,7 @@ class authThunksClass {
     try {
       const { data } = await authAPI.signup(username, password, name as string, surname as string);
       return thunkAPI.fulfillWithValue(data.message)
-    } catch (e) {
+    } catch (e: any) {
       checkAndSendError(e, thunkAPI);
     }
   })
@@ -66,6 +66,7 @@ class authThunksClass {
   setAuthPhoto = createAsyncThunk('set/auth/photo', async (photo: File, thunkAPI) => {
     try {
       const { data } = await authAPI.setAvatar(photo);
+      thunkAPI.dispatch(this.getAuthProfile());
       return thunkAPI.fulfillWithValue(data.message);
     } catch (e: any) {
       return checkAndSendError(e, thunkAPI);
@@ -75,6 +76,7 @@ class authThunksClass {
   setAuthHeader = createAsyncThunk('set/auth/header', async (photo: File, thunkAPI) => {
     try {
       const { data } = await authAPI.setHeader(photo);
+      thunkAPI.dispatch(this.getAuthProfile());
       return thunkAPI.fulfillWithValue(data.message);
     } catch (e: any) {
       return checkAndSendError(e, thunkAPI);
@@ -84,6 +86,7 @@ class authThunksClass {
   setAuthAboutMe = createAsyncThunk('set/auth/about/me', async (value: string, thunkAPI) => {
     try {
       const { data } = await authAPI.setAboutMe(value);
+      thunkAPI.dispatch(this.getAuthProfile());
       return thunkAPI.fulfillWithValue(data.message);
     } catch (e: any) {
       return checkAndSendError(e, thunkAPI);
@@ -93,6 +96,7 @@ class authThunksClass {
   setAuthStatus = createAsyncThunk('set/auth/status', async (value: string, thunkAPI) => {
     try {
       const { data } = await authAPI.setStatus(value);
+      thunkAPI.dispatch(this.getAuthProfile());
       return thunkAPI.fulfillWithValue(data.message);
     } catch (e: any) {
       return checkAndSendError(e, thunkAPI);
@@ -102,6 +106,7 @@ class authThunksClass {
   addAuthPost = createAsyncThunk('add/auth/post', async ({ Title, Description, photo }: { Title: string, Description: string, photo: File }, thunkAPI) => {
     try {
       const { data } = await authAPI.addPost(Title, Description, photo);
+      thunkAPI.dispatch(this.getAuthProfile());
       return thunkAPI.fulfillWithValue(data.message);
     } catch (e: any) {
       return checkAndSendError(e, thunkAPI);
@@ -156,6 +161,26 @@ class authThunksClass {
   setAuthProfile = createAsyncThunk('set/auth/profile', async (profile: IProfile, thunkAPI) => {
     try {
       return profile;
+    } catch (e: any) {
+      return checkAndSendError(e, thunkAPI);
+    }
+  })
+
+  clearAvatar = createAsyncThunk('clear/avatar', async (_, thunkAPI) => {
+    try {
+      const { data } = await authAPI.clearAvatar();
+      thunkAPI.dispatch(this.getAuthProfile());
+      return thunkAPI.fulfillWithValue(data.message);
+    } catch (e: any) {
+      return checkAndSendError(e, thunkAPI);
+    }
+  })
+
+  clearHeader = createAsyncThunk('clear/header', async (_, thunkAPI) => {
+    try {
+      const { data } = await authAPI.clearHeader();
+      thunkAPI.dispatch(this.getAuthProfile());
+      return thunkAPI.rejectWithValue(data.message);
     } catch (e: any) {
       return checkAndSendError(e, thunkAPI);
     }

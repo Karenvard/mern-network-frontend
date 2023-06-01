@@ -61,6 +61,14 @@ class authAPI {
     disLikeComment(postId: string, commentId: string, userId: string) {
         return $authHost.post<ServerMessage & {error: IError}>("/auth/disLikeComment", {userId, postId, commentId})
     }
+
+    clearAvatar() {
+      return $authHost.delete<ServerMessage & {error: IError}>("/auth/clearAvatar");
+    }
+
+    clearHeader() {
+      return $authHost.delete<ServerMessage & {error: IError}>("/auth/clearHeader");
+    }
 }
 
 export default new authAPI();

@@ -4,7 +4,8 @@
     top: 10vh;
     width: 100vw;
     background-color: var(--my-white);
-    height: fit-content;
+    min-height: 90vh !important;
+    height: fit-content !important;  
 
     .header {
         width: 100%;
@@ -44,9 +45,13 @@
         display: flex;
         flex-direction: row;
 
+        .nameStatus {
+          height: 30vh;
+        }
+
         .profileAboutMe {
             width: 40vw;
-            height: 20vh;
+            height: 10vh;
             overflow-wrap: break-word;
         }
 
@@ -151,28 +156,41 @@
     }
 }
 
-.HeaderPopupContainer {
+.avatarandHeaderPopupContainer {
+  width: 35vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  > button {
+    cursor: pointer;
+    width: 15vw;
+    height: 8vh;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 0;
+    color: white;
+    font-size: 2em;
+    font-weight: 600;
+    margin: 2vh 0;
+    &:nth-child(1) {
+      background-color: var(--my-green);
+    }
+    &:nth-child(2) {
+      background-color: var(--my-red);
+    }
+  }
+}
+
+
+.newHeaderPopupContainer {
     width: 60vw;
     height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     
-    .confirmDeleteHeader {
-        > span {
-            font-size: 1.5em;
-        }
-        > div {
-            display: flex;
-            flex-direction: row;
-            > button:nth-child(1) {
-                background-color: var(--my-green);
-            }
-            > button:nth-child(2) {
-                background-color: var(--my-red);
-            }
-        }
-    }
 
     > span {
         margin-top: 5vh;
@@ -237,3 +255,37 @@
         margin-top: 10vh;
     }
 }
+
+ .confirmDeletePhoto {
+   width: 30vw;
+   height: 30vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+        > span {
+            font-size: 2em;
+            margin-bottom: 5vh;
+        }
+        > div {
+            display: flex;
+            flex-direction: row;
+            >button {
+              border-style: solid;
+              border-width: 0;
+              border-radius: 20px;
+              width: 10vw;
+              height: 7vh;
+              color: white;
+              font-size: 2em;
+              font-weight: 600;
+              margin: 0 1vw;
+            }
+            > button:nth-child(1) {
+                background-color: var(--my-red);
+            }
+            > button:nth-child(2) {
+                background-color: var(--my-green);
+            }
+        }
+    }
