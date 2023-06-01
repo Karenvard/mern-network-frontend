@@ -58,6 +58,11 @@ const ProfilePage: FC = () => {
         setAvatarPopup(false);
       }
     }
+    
+    function deleteHeaderHandle() {
+        dispatch(authThunks.deleteHeader());
+        setDeleteHeaderPopup(false);
+    }
 
     useEffect(() => {
         containerRef.current.style.height = `${containerRef.current.clientHeight + 50}px`
@@ -69,10 +74,12 @@ const ProfilePage: FC = () => {
     return <>
         <Popup setIsActive={setHeaderPopup} isActive={headerPopup}>
             <Popup setIsActive={setDeleteHeaderPopup} isActive={deleteHeaderPopup}>
-              <div style={{width: "500px", height: "500px"}}>
-                Are you sure? <br></br>
-                <button>Yes</button> <br></br>
-                <button>!No</button> <br></br>
+              <div className={classes.confirmDeleteHeader}>
+                <span>Are you sure?</span>
+                <div>
+                  <button onClick={deleteHeaderHandle}>Yes</button>
+                  <button onClick={_ => setDeleteHeaderPopup(false)}>No</button>
+                </div>
               </div>
             </Popup>
             <div className={classes.HeaderPopupContainer}>
