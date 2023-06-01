@@ -157,6 +157,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    .confirmDeleteHeader {
+        > span {
+            font-size: 1.5em;
+        }
+        > div {
+            display: flex;
+            flex-direction: row;
+            > button:nth-child(1) {
+                background-color: var(--my-green);
+            }
+            > button:nth-child(2) {
+                background-color: var(--my-red);
+            }
+        }
+    }
 
     > span {
         margin-top: 5vh;
