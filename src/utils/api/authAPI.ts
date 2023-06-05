@@ -2,6 +2,7 @@ import { ServerMessage } from "../models/ServerMessage";
 import {IError} from "../models/IError"
 import {$host, $authHost} from "./api";
 import { IProfile } from "../models/IProfile";
+import { IPost } from "../models/IPost";
 
 class authAPI {
     signup(username: string, password: string, name: string, surname: string) {
@@ -14,6 +15,10 @@ class authAPI {
 
     getProfile() {
         return $authHost.get<{profile: IProfile} & {error: IError}>("/auth/profile")
+    }
+    
+    getPosts() {
+        return $authHost.get<{posts: IPost[]}>("/auth/posts?pageSize=${pageSize}");
     }
 
     setAvatar(photo: File) {
