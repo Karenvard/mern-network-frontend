@@ -2,20 +2,15 @@ import { FC, RefObject, useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import classes from "./ProfilePage.module.scss";
 // @ts-ignore
-import headerPhoto from "../../../assets/photos/headerPhoto.webp";
-// @ts-ignore
 import userPhoto from "./../../../assets/photos/userPhoto.png";
 // @ts-ignore
-import heartOutlineICON from "./../../../assets/icons/outlineHeartIcon.png";
-// @ts-ignore
 import cameraIcon from "../../../assets/icons/cameraIcon.png";
-// @ts-ignore
-import commentICON from "./../../../assets/icons/commentIcon.png";
 // @ts-ignore
 import notUploadedPhoto from "../../../assets/photos/notUploadedImage.png";
 import { authThunks } from '../../../store/Thunks';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import Popup from '../../common/Popup/Popup';
+import Posts from './Posts';
 
 
 const ProfilePage: FC = () => {
@@ -28,6 +23,7 @@ const ProfilePage: FC = () => {
   const [isEditStatus, setIsEditStatus] = useState<boolean>(false);
   const [isEditAboutMe, setIsEditAboutMe] = useState<boolean>(false);
   const [newAboutMe, setNewAboutMe] = useState<string>('');
+  const [newPostInfo, setNewPostInfo] = useState<{ photo?: File, title: string, body: string }>({ title: "", body: "" });
   const [headerPopup, setHeaderPopup] = useState<boolean>(false);
   const [deleteHeaderPopup, setDeleteHeaderPopup] = useState<boolean>(false);
   const [newHeaderPopup, setNewHeaderPopup] = useState<boolean>(false);
@@ -75,6 +71,7 @@ const ProfilePage: FC = () => {
     setDeleteAvatarPopup(false);
   }
 
+
   useEffect(() => {
     containerRef.current.style.height = `${containerRef.current.clientHeight + 50}px`
     dispatch(authThunks.getAuthProfile())
@@ -85,7 +82,26 @@ const ProfilePage: FC = () => {
   return <>
 
     <Popup isActive={newPostPopup} setIsActive={setNewPostPopup}>
-      
+      <div className={classes.newPostForm}>
+        <div>
+          Title
+          <input type="text" onChange={e => setNewPostInfo(prev => ({ ...prev, title: e.target.value }))} />
+        </div>
+        <div>
+          Description
+          <input type="text" onChange={e => setNewPostInfo(prev => ({ ...prev, body: e.target.value }))} />
+        </div>
+        <div>
+          Photo preview
+          <img src={newPostInfo.photo ? URL.createObjectURL(newPostInfo.photo) : notUploadedPhoto} alt=""/>
+          {/*@ts-ignore*/}
+          <input id="input-post-photo" style={{display: "none"}} type="file" onChange={e => setNewPostInfo(prev => ({ ...prev, photo: e.target.files[0] }))} />
+          <label htmlFor="input-post-photo">
+            Upload
+          </label>
+        </div>
+        <button>Create</button>
+      </div>
     </Popup>
 
     <Popup setIsActive={setHeaderPopup} isActive={headerPopup}>
@@ -198,20 +214,13 @@ const ProfilePage: FC = () => {
           </p>
         }
       </div>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <button onClick={_ => setNewPostPopup(true)} style={{ backgroundColor: "var(--my-red)", border: "none", color: "white", width: "16vw", height: "7vh", fontSize: "2em", fontWeight: "600" }}>
+          Create new post
+        </button>
+      </div>
 
-      {profile.posts && profile.posts.length
-        ? <div className={classes.posts}>
-          <span className={classes.lastPostTitle}>Last post</span>
-          <div className={classes.lastPost}>
-            <img src={headerPhoto} alt="" />
-            <p className={classes.lastPostDescription}></p>
-            <div className={classes.tools}>
-              <img src={heartOutlineICON} alt="" />
-              <img src={commentICON} alt="" />
-            </div>
-          </div>
-        </div>
-        : <></>}
+      {profile.posts && profile.posts.length ? <Posts /> : null}
     </div>
   </>
 }
