@@ -62,6 +62,15 @@ class authThunksClass {
       return checkAndSendError(e, thunkAPI);
     }
   })
+  
+  getPosts = createAsyncThunk("get/posts", async (_, thunkAPI) => {
+    try {
+      const { data } = await authAPI.getPosts();
+      return thunkAPI.fulfillWithValue(data.posts);
+    } catch (e: any) {
+      return checkAndSendError(e, thunkAPI);
+    }
+  })
 
   setAuthPhoto = createAsyncThunk('set/auth/photo', async (photo: File, thunkAPI) => {
     try {
