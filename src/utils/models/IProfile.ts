@@ -8,7 +8,5 @@ export interface IProfile {
     aboutMe: string | null
     status: string | null
     avatar: string | null,
-    header: string | null,
-    posts: IPost[] | null
-    followed: boolean | null
+    header: string | null
 }
