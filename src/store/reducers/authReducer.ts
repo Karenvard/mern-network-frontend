@@ -7,9 +7,10 @@ interface authState {
     error: IError
     isLoading: boolean  
     isAuth: boolean
-    activePopups: string[]
     captchaURL: string
     profile: IProfile
+    posts: IPost[]
+    followed: {userId: string}[]
     message: string
 }
 
@@ -28,10 +29,10 @@ let initialState: authState = {
         aboutMe: null,
         status: null,
         avatar: null,
-        header: null,
-        posts: null,
-        followed: null,
+        header: null
     },
+    posts: [],
+    followed: []
 }
 
 export const authSlice: Slice<authState> = createSlice({
@@ -278,6 +279,20 @@ export const authSlice: Slice<authState> = createSlice({
             state.message = '';
             state.error = action.payload;
             console.log(action.payload);
+        },
+        
+        [authThunks.getPosts.fulfilled.type]: (state, action: PayloadAction<IPost[]>) => {
+            state.error = {};
+            state.isLoading = false;
+            state.posts = action.payload;
+        },
+        [authThunks.getPosts.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [authThunks.getPosts.rejected.type]: (state, action: PayloadAction<IError>) => {
+            state.isLoading = false;
+            state.message = "";
+            state.error = action.payload;
         }
     }
 })
